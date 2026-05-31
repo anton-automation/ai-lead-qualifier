@@ -43,7 +43,7 @@ Telegram   Telegram   Telegram   Telegram
 
 ## Демо
 
-[скриншот сюда]
+https://github.com/anton-automation/ai-lead-qualifier/blob/main/screenshots/ai_lead_qualifier.png
 
 ## Бизнес-ценность
 
