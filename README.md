@@ -30,10 +30,11 @@ Route_by_category → Telegram_hot/warm/cold/spam → Merge → Telegram_confirm
 - n8n (Docker, localhost)
 - OpenAI GPT-4o-mini
 - Telegram Bot API
-
+- Google Sheets (Service Account)
+- 
 ## Как запустить
 
-1. Импортируй `ai_lead_qualifier_v1.json` в n8n
+1. Импортируй `ai_lead_qualifier_v3.json` в n8n
 2. Добавь credentials:
    - OpenAI API key
    - Telegram Bot token
