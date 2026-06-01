@@ -19,15 +19,11 @@ Google Sheets логирование
 | 🚫 Нецелевой | 4 | Спам, реклама, не по теме |
 
 ## Архитектура
-Telegram Trigger
-↓
-OpenAI GPT-4o-mini (classification JSON mode)
-↓
-Parse_lead (Edit Fields — маппинг данных)
-↓
-Route_by_category (Switch node)
-↓ hot      ↓ warm     ↓ cold     ↓ spam
-Telegram   Telegram   Telegram   Telegram
+Telegram Trigger → OpenAI → Parse_lead → Sheet_logs → Route_by_category
+                                  ↓ (error)
+                            Telegram_error
+
+Route_by_category → Telegram_hot/warm/cold/spam → Merge → Telegram_confirm
 
 ## Стек
 
@@ -53,3 +49,19 @@ Telegram   Telegram   Telegram   Telegram
 Горячие лиды обрабатываются немедленно — холодные не теряются.
 
 Подходит для: отделов продаж, агентств, фрилансеров с входящими заявками.
+
+## Версии
+
+### v1 — базовая классификация
+- Classification prompt (4 категории: hot/warm/cold/spam)
+- Switch node — роутинг по категории
+- 4 Telegram уведомления менеджеру
+
+### v2 — логирование
+- Google Sheets: timestamp, name, contact, category, priority, reason
+- Telegram подтверждение пользователю
+
+### v3 — error handling
+- Parse_lead: On Error → Continue (using error output)
+- Telegram_error — уведомление при сбое AI парсинга
+- Workflow не падает при невалидном JSON от OpenAI
